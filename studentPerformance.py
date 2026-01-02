@@ -2,10 +2,6 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 import seaborn as sns
-
-# -----------------------------
-# 1. Load Dataset
-# -----------------------------
 file_path = "C:\EV\programs\python\StudentsPerformance.csv"
 df = pd.read_csv(file_path)
 
@@ -21,45 +17,28 @@ print(df.describe(include='all'))
 print("\n===== NULL VALUES =====")
 print(df.isnull().sum())
 
-# -----------------------------
-# 2. Check Duplicates
-# -----------------------------
 print("\n===== DUPLICATE ROWS =====")
 print(df.duplicated().sum())
 
-# -----------------------------
-# 3. Correlation Heatmap
-# -----------------------------
 plt.figure(figsize=(10, 6))
 sns.heatmap(df.corr(numeric_only=True), annot=True)
 plt.title("Correlation Heatmap")
 plt.show()
 
-# -----------------------------
-# 4. Distribution Plots
-# -----------------------------
 numeric_cols = df.select_dtypes(include=np.number).columns
-
 for col in numeric_cols:
     plt.figure(figsize=(6,4))
     sns.histplot(df[col], kde=True)
     plt.title(f"Distribution of {col}")
     plt.show()
 
-# -----------------------------
-# 5. Boxplots for Outliers
-# -----------------------------
 for col in numeric_cols:
     plt.figure(figsize=(6,4))
     sns.boxplot(x=df[col])
     plt.title(f"Boxplot for {col}")
     plt.show()
 
-# -----------------------------
-# 6. Countplots for Categorical Columns
-# -----------------------------
 cat_cols = df.select_dtypes(include=['object']).columns
-
 for col in cat_cols:
     plt.figure(figsize=(6,4))
     sns.countplot(x=df[col])
